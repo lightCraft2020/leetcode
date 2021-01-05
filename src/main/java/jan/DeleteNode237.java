@@ -8,7 +8,7 @@ public class DeleteNode237 {
 
     public static class ListNode {
         int val;
-        DeleteNodeOffer18.ListNode next;
+        ListNode next;
         ListNode(int val) { this.val = val; }
     }
 
