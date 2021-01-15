@@ -30,30 +30,21 @@ public class DeleteDuplicates82 {
             head = head.next;
         }
 
-        ListNode node = new ListNode(0);
-        ListNode result = node;
-        while(duplicateSet.contains(newHead.val)){
-            node.next = newHead.next;
-            newHead = newHead.next;
-            node = node.next;
-        }
-
-        if(newHead == null){
-            return node;
-        }
-
-        node.next = newHead;
-
-        while(newHead.next != null && node.next != null){
-            if(duplicateSet.contains(newHead.next.val)){
-                node = newHead.next.next;
-            } else {
-                node = node.next;
-                node.next = newHead.next;
+        ListNode dummy = new ListNode(0);
+        dummy.next = newHead;
+        ListNode curr = dummy;
+        while(curr.next != null && curr.next.next != null){
+            ListNode temp = curr.next;
+            if(duplicateSet.contains(curr.next.val)){
+                while(duplicateSet.contains(curr.next.val)){
+                    curr.next = curr.next.next;
+                    curr = curr.next;
+                }
+                temp.next = curr;
             }
-            newHead.next = newHead.next.next;
+            curr = curr.next;
         }
-        return result.next;
+        return dummy.next;
     }
 
     public static void main(String[] args) {
