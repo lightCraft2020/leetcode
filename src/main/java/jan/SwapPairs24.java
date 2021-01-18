@@ -14,7 +14,6 @@ public class SwapPairs24 {
     }
 
     public ListNode swapPairs(ListNode head) {
-
         ListNode dummy = new ListNode(0);
         dummy.next = head;
         ListNode curr = dummy;
@@ -22,15 +21,13 @@ public class SwapPairs24 {
             return head;
         }
         while(curr.next != null && curr.next.next != null){
-            ListNode temp = curr.next.next;
-            temp.next = curr.next;
-            curr.next = curr.next.next;
-
-            curr = curr.next;
+            ListNode node2 = curr.next.next;
+            ListNode node1 = curr.next;
+            curr.next = node2;
+            node1.next = node2.next;
+            node2.next = node1;
+            curr = node1;
         }
-
-
-
         return dummy.next;
     }
 
