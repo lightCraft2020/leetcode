@@ -6,35 +6,47 @@ package jan;
  */
 public class ReverseBetween92 {
 
-    public ListNode reverseBetween(ListNode head, int m, int n) {
+    public static ListNode reverseBetween(ListNode head, int m, int n) {
         ListNode reverse = null;
-        ListNode curr = head;
+
         int i = 1;
         ListNode dummy = new ListNode(0);
-        dummy.next = curr;
+        dummy.next = head;
+        ListNode curr = dummy;
         if(null == head || m==n){
             return head;
         }
+        ListNode newHead = null;
         ListNode pre = null;
-        while(curr != null){
+        while(dummy.next != null){
             if(i == m){
-                pre = curr;
-                reverse = curr;
+                pre = dummy;
+                reverse = new ListNode(dummy.next.val);
+                newHead = reverse;
                 curr = curr.next;
-                reverse.next = reverse;
-            } else if(n == i){
-                reverse = reverseList(reverse);
-                reverse.next = curr;
+                dummy = dummy.next;
+            } else if(i>m && i <=n){
+                reverse.next = new ListNode(dummy.next.val);
+                reverse = reverse.next;
+                dummy = dummy.next;
+            }
+            else if(n < i){
+                newHead = reverseList(newHead);
+                pre.next = newHead;
+                while( reverse.next != null){
+                    reverse = reverse.next;
+                }
+                reverse.next = dummy.next;
             }
             else {
-                curr = curr.next;
+                dummy = dummy.next;
             }
             i++;
         }
-        return dummy.next;
+        return curr.next;
     }
 
-    public ListNode reverseList(ListNode head) {
+    public static ListNode reverseList(ListNode head) {
         ListNode pre = null;
         ListNode curr = head;
         while(curr != null){
@@ -45,6 +57,16 @@ public class ReverseBetween92 {
         }
         return pre;
     }
+
+    public static void main(String[] args) {
+
+        ListNode head = TestNode.getNode();
+        head = reverseBetween(head,2,4);
+        System.out.println(head);
+
+
+    }
+
 
 
 }
