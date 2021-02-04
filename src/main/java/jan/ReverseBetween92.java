@@ -7,6 +7,35 @@ package jan;
 public class ReverseBetween92 {
 
     public static ListNode reverseBetween(ListNode head, int m, int n) {
+        if(null == head || n == 1){
+            return head;
+        }
+        ListNode curr = head, prev = null;
+        while(m > 1){
+            prev = curr;
+            curr = curr.next;
+            m--;
+            n--;
+        }
+        ListNode node = prev, tail = curr;
+        while (n > 0){
+            ListNode temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr= temp;
+            n--;
+        }
+        if(node != null){
+            node.next = prev;
+        } else {
+            head = prev;
+        }
+
+        tail.next = curr;
+        return head;
+    }
+
+    public static ListNode reverseBetweenF(ListNode head, int m, int n) {
         ListNode reverse = null;
 
         int i = 1;
